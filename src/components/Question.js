@@ -8,17 +8,16 @@ function Question({ question, onAnswered }) {
     if (timeRemaining === 0) {
       setTimeRemaining(10)
       onAnswered(false)
+      return  
     }
 
     const intervalID = setInterval(() => {
       setTimeRemaining(timeRemaining - 1)
     }, 1000)
 
-    return function cleanup() {
-      clearInterval(intervalID)
-    }
+    return () => clearTimeout(intervalID)
     
-  })
+  }, [timeRemaining, onAnswered])
 
 
 
