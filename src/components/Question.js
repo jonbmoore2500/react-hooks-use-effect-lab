@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-// import { useEffect } from "react/cjs/react.production.min"; this caused a big problem
 
 function Question({ question, onAnswered }) {
   const [timeRemaining, setTimeRemaining] = useState(10);
 
   // add useEffect code
   useEffect(() => {
+    if (timeRemaining === 0) {
+      setTimeRemaining(10)
+      onAnswered(false)
+    }
+
     const intervalID = setInterval(() => {
       setTimeRemaining(timeRemaining - 1)
-      if (timeRemaining === 0) {
-        setTimeRemaining(10)
-        onAnswered(false)
-      }
     }, 1000)
-    
+
     return function cleanup() {
       clearInterval(intervalID)
     }
